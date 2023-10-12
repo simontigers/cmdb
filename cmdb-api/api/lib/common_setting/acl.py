@@ -109,6 +109,12 @@ class ACLManager(object):
             id2perms=id2perms
         )
 
+    def create_resources_type(self, payload):
+        payload['app_id'] = self.validate_app().id
+        rt = ResourceTypeCRUD.add(**payload)
+
+        return rt.to_dict()
+
     def create_resource(self, payload):
         payload['app_id'] = self.validate_app().id
         resource = ResourceCRUD.add(**payload)
