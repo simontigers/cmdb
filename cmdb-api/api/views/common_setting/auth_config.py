@@ -32,9 +32,10 @@ class AuthConfigView(APIView):
             abort(400, ErrFormat.not_support_auth_type.format(auth_type))
 
         params = request.json
+        data = params.get('data', {})
         if auth_type in cli.common_type_list:
-            params['encrypt'] = False
-            cli.create(**params)
+            data['encrypt'] = False
+            cli.create(data)
         else:
             cli.create(params.get('data', {}))
 
